@@ -1,4 +1,4 @@
-# SKU profile: XPU-B
+# SKU profile: H20
 #
 # Vendor-published peak values for roofline upper-bound analysis.
 # All FLOPS values are dense (sparsity-OFF). All units are SI integers
@@ -8,7 +8,7 @@
 # output, not here.
 
 hardware:
-  name: XPU-B
+  name: H20
 
 p_peak:                            # FLOPs/s per execution path
   bf16_tc:        148000000000000  # 148.0 TFLOPS  - BF16 Tensor Core
@@ -24,5 +24,5 @@ source:
   vendor_doc: 'internal measurement'
   retrieved_at: '2026-04-23'
   notes: |
-    XPU-B peak values for roofline upper-bound analysis.
+    H20 peak values for roofline upper-bound analysis.
     FP8 tensor-core throughput is 2x the BF16 / FP16 tensor-core path.
