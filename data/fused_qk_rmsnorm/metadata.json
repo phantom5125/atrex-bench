@@ -23,8 +23,10 @@
       "source_framework": "rtp-llm",
       "tensor_parallel_size": 1,
       "production_performance": {
-        "framework": "rtp",
-        "performance_us": 7.7
+        "XPU-A": {
+          "framework": "rtp",
+          "performance_us": 7.7
+        }
       }
     },
     "1": {
@@ -32,8 +34,10 @@
       "source_framework": "rtp-llm",
       "tensor_parallel_size": 1,
       "production_performance": {
-        "framework": "rtp",
-        "performance_us": 7.75
+        "XPU-A": {
+          "framework": "rtp",
+          "performance_us": 7.75
+        }
       }
     },
     "3": {
@@ -41,8 +45,10 @@
       "source_framework": "rtp-llm",
       "tensor_parallel_size": 2,
       "production_performance": {
-        "framework": "rtp",
-        "performance_us": 7.75
+        "XPU-A": {
+          "framework": "rtp",
+          "performance_us": 7.75
+        }
       }
     },
     "4": {
@@ -50,8 +56,10 @@
       "source_framework": "rtp-llm",
       "tensor_parallel_size": 1,
       "production_performance": {
-        "framework": "rtp",
-        "performance_us": 7.74
+        "XPU-A": {
+          "framework": "rtp",
+          "performance_us": 7.74
+        }
       }
     }
   }

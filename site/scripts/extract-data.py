@@ -136,7 +136,13 @@ def main():
             for sid, shape_meta in metadata_shapes.items():
                 if not isinstance(shape_meta, dict):
                     continue
-                shape_perf = shape_meta.get("production_performance")
+                # production_performance is keyed by GPU SKU; only XPU-A measured so far
+                shape_perf_by_sku = shape_meta.get("production_performance")
+                shape_perf = (
+                    shape_perf_by_sku.get("XPU-A")
+                    if isinstance(shape_perf_by_sku, dict)
+                    else None
+                )
                 if isinstance(shape_perf, dict) and shape_perf:
                     prod_perf[sid] = shape_perf
         prod_summary = None

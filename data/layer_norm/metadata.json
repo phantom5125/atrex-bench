@@ -22,8 +22,10 @@
       "call_count": 54,
       "total_duration_us": 414.0,
       "production_performance": {
-        "framework": "aiter",
-        "performance_us": 8.94
+        "XPU-A": {
+          "framework": "aiter",
+          "performance_us": 8.94
+        }
       }
     },
     "1": {
@@ -32,8 +34,10 @@
       "call_count": 108,
       "total_duration_us": 1002.0,
       "production_performance": {
-        "framework": "aiter",
-        "performance_us": 9.95
+        "XPU-A": {
+          "framework": "aiter",
+          "performance_us": 9.95
+        }
       }
     },
     "2": {
@@ -42,8 +46,10 @@
       "call_count": 54,
       "total_duration_us": 727.0,
       "production_performance": {
-        "framework": "aiter",
-        "performance_us": 12.07
+        "XPU-A": {
+          "framework": "aiter",
+          "performance_us": 12.07
+        }
       }
     },
     "3": {
@@ -52,8 +58,10 @@
       "call_count": 162,
       "total_duration_us": 3390.0,
       "production_performance": {
-        "framework": "aiter",
-        "performance_us": 15.79
+        "XPU-A": {
+          "framework": "aiter",
+          "performance_us": 15.79
+        }
       }
     },
     "4": {
@@ -62,8 +70,10 @@
       "call_count": 108,
       "total_duration_us": 3543.0,
       "production_performance": {
-        "framework": "aiter",
-        "performance_us": 23.29
+        "XPU-A": {
+          "framework": "aiter",
+          "performance_us": 23.29
+        }
       }
     },
     "5": {
@@ -72,8 +82,10 @@
       "call_count": 54,
       "total_duration_us": 3313.0,
       "production_performance": {
-        "framework": "aiter",
-        "performance_us": 37.96
+        "XPU-A": {
+          "framework": "aiter",
+          "performance_us": 37.96
+        }
       }
     },
     "6": {
@@ -82,8 +94,10 @@
       "call_count": 54,
       "total_duration_us": 6063.0,
       "production_performance": {
-        "framework": "aiter",
-        "performance_us": 63.95
+        "XPU-A": {
+          "framework": "aiter",
+          "performance_us": 63.95
+        }
       }
     },
     "7": {
@@ -92,8 +106,10 @@
       "call_count": 54,
       "total_duration_us": 9650.0,
       "production_performance": {
-        "framework": "aiter",
-        "performance_us": 97.52
+        "XPU-A": {
+          "framework": "aiter",
+          "performance_us": 97.52
+        }
       }
     },
     "8": {
@@ -102,8 +118,10 @@
       "call_count": 54,
       "total_duration_us": 15746.0,
       "production_performance": {
-        "framework": "aiter",
-        "performance_us": 152.15
+        "XPU-A": {
+          "framework": "aiter",
+          "performance_us": 152.15
+        }
       }
     },
     "9": {
@@ -111,8 +129,10 @@
       "source_framework": "sglang",
       "call_count": 30,
       "production_performance": {
-        "framework": "aiter",
-        "performance_us": 788.42
+        "XPU-A": {
+          "framework": "aiter",
+          "performance_us": 788.42
+        }
       }
     },
     "10": {
@@ -120,8 +140,10 @@
       "source_framework": "rtp-llm",
       "tensor_parallel_size": 1,
       "production_performance": {
-        "framework": "aiter",
-        "performance_us": 7.59
+        "XPU-A": {
+          "framework": "aiter",
+          "performance_us": 7.59
+        }
       }
     },
     "11": {
@@ -129,8 +151,10 @@
       "source_framework": "rtp-llm",
       "tensor_parallel_size": 1,
       "production_performance": {
-        "framework": "aiter",
-        "performance_us": 8.07
+        "XPU-A": {
+          "framework": "aiter",
+          "performance_us": 8.07
+        }
       }
     },
     "12": {
@@ -138,8 +162,10 @@
       "source_framework": "rtp-llm",
       "tensor_parallel_size": 1,
       "production_performance": {
-        "framework": "aiter",
-        "performance_us": 8.91
+        "XPU-A": {
+          "framework": "aiter",
+          "performance_us": 8.91
+        }
       }
     }
   }

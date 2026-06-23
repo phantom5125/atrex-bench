@@ -26,8 +26,10 @@
       "source_framework": "vllm",
       "call_count": 12,
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 1292.2
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 1292.2
+        }
       }
     },
     "1": {
@@ -35,8 +37,10 @@
       "source_framework": "vllm",
       "call_count": 12,
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 2893.5
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 2893.5
+        }
       }
     },
     "2": {
@@ -44,16 +48,20 @@
       "source_framework": "vllm",
       "call_count": 12,
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 4689.42
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 4689.42
+        }
       }
     },
     "3": {
       "description": "(vLLM TP4), prefill paged attention, seqs=1 heads=16/1 head_dim=128",
       "source_framework": "vllm",
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 24.8
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 24.8
+        }
       }
     },
     "4": {
@@ -61,8 +69,10 @@
       "origin_kernel": "flash_attention",
       "source_repo": "atrex-bench",
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 1126.72
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 1126.72
+        }
       }
     },
     "5": {
@@ -70,8 +80,10 @@
       "origin_kernel": "flash_attention",
       "source_repo": "atrex-bench",
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 38609.73
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 38609.73
+        }
       }
     },
     "6": {
@@ -79,8 +91,10 @@
       "origin_kernel": "flash_attention",
       "source_repo": "atrex-bench",
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 70572.83
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 70572.83
+        }
       }
     },
     "7": {
@@ -88,8 +102,10 @@
       "origin_kernel": "flash_attention",
       "source_repo": "atrex-bench",
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 258.27
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 258.27
+        }
       }
     },
     "8": {
@@ -97,8 +113,10 @@
       "origin_kernel": "flash_attention",
       "source_repo": "atrex-bench",
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 413.17
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 413.17
+        }
       }
     },
     "9": {
@@ -106,8 +124,10 @@
       "source_framework": "vllm",
       "call_count": 48,
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 5037.07
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 5037.07
+        }
       }
     },
     "10": {
@@ -115,8 +135,10 @@
       "source_framework": "vllm",
       "call_count": 48,
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 10834.22
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 10834.22
+        }
       }
     },
     "11": {
@@ -124,8 +146,10 @@
       "source_framework": "vllm",
       "call_count": 48,
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 16042.89
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 16042.89
+        }
       }
     },
     "12": {
@@ -133,8 +157,10 @@
       "source_framework": "vllm",
       "call_count": 48,
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 29361.38
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 29361.38
+        }
       }
     },
     "13": {
@@ -142,8 +168,10 @@
       "source_framework": "vllm",
       "call_count": 48,
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 48595.17
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 48595.17
+        }
       }
     },
     "14": {
@@ -151,8 +179,10 @@
       "origin_kernel": "flash_attention",
       "source_repo": "atrex-bench",
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 72.25
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 72.25
+        }
       }
     },
     "15": {
@@ -160,8 +190,10 @@
       "origin_kernel": "flash_attention",
       "source_repo": "atrex-bench",
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 18.46
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 18.46
+        }
       }
     },
     "16": {
@@ -169,8 +201,10 @@
       "source_framework": "vllm",
       "call_count": 28,
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 518.65
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 518.65
+        }
       }
     },
     "17": {
@@ -178,8 +212,10 @@
       "source_framework": "vllm",
       "call_count": 28,
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 3222.03
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 3222.03
+        }
       }
     },
     "18": {
@@ -187,8 +223,10 @@
       "source_framework": "vllm",
       "call_count": 28,
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 32450.71
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 32450.71
+        }
       }
     },
     "19": {
@@ -196,8 +234,10 @@
       "source_framework": "vllm",
       "call_count": 28,
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 56166.02
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 56166.02
+        }
       }
     },
     "20": {
@@ -208,8 +248,10 @@
       "call_count": 864,
       "total_duration_us": 6600057.0,
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 9737.46
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 9737.46
+        }
       }
     },
     "21": {
@@ -220,8 +262,10 @@
       "call_count": 108,
       "total_duration_us": 153990.0,
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 1179.54
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 1179.54
+        }
       }
     },
     "22": {
@@ -229,8 +273,10 @@
       "origin_kernel": "flash_attention",
       "source_repo": "atrex-bench",
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 160946.59
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 160946.59
+        }
       }
     },
     "23": {
@@ -238,8 +284,10 @@
       "origin_kernel": "flash_attention",
       "source_repo": "atrex-bench",
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 43.68
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 43.68
+        }
       }
     },
     "24": {
@@ -247,8 +295,10 @@
       "origin_kernel": "flash_attention",
       "source_repo": "atrex-bench",
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 5684.42
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 5684.42
+        }
       }
     }
   }

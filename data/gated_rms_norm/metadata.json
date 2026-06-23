@@ -25,8 +25,10 @@
       "total_duration_us": 5724.0,
       "source_framework": "sglang",
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 248.73
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 248.73
+        }
       }
     },
     "1": {
@@ -36,8 +38,10 @@
       "total_duration_us": 3138.0,
       "source_framework": "sglang",
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 141.11
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 141.11
+        }
       }
     },
     "2": {
@@ -47,8 +51,10 @@
       "total_duration_us": 3116.0,
       "source_framework": "sglang",
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 140.04
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 140.04
+        }
       }
     },
     "3": {
@@ -58,8 +64,10 @@
       "total_duration_us": 2643.0,
       "source_framework": "sglang",
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 119.72
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 119.72
+        }
       }
     },
     "4": {
@@ -69,8 +77,10 @@
       "total_duration_us": 2615.0,
       "source_framework": "sglang",
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 118.72
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 118.72
+        }
       }
     },
     "5": {
@@ -80,8 +90,10 @@
       "total_duration_us": 2299.0,
       "source_framework": "sglang",
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 104.38
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 104.38
+        }
       }
     },
     "6": {
@@ -91,8 +103,10 @@
       "total_duration_us": 2214.0,
       "source_framework": "sglang",
       "production_performance": {
-        "framework": "sglang",
-        "performance_us": 100.02
+        "XPU-A": {
+          "framework": "sglang",
+          "performance_us": 100.02
+        }
       }
     }
   }

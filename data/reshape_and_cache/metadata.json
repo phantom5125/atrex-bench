@@ -26,8 +26,10 @@
       "source_framework": "vllm",
       "call_count": 6580,
       "production_performance": {
-        "framework": "aiter",
-        "performance_us": 7.48
+        "XPU-A": {
+          "framework": "aiter",
+          "performance_us": 7.48
+        }
       }
     },
     "1": {
@@ -35,8 +37,10 @@
       "source_framework": "vllm",
       "call_count": 60,
       "production_performance": {
-        "framework": "aiter",
-        "performance_us": 7.68
+        "XPU-A": {
+          "framework": "aiter",
+          "performance_us": 7.68
+        }
       }
     },
     "2": {
@@ -45,8 +49,10 @@
       "call_count": 94,
       "total_duration_us": 445.0,
       "production_performance": {
-        "framework": "aiter",
-        "performance_us": 9.8
+        "XPU-A": {
+          "framework": "aiter",
+          "performance_us": 9.8
+        }
       }
     },
     "3": {
@@ -55,8 +61,10 @@
       "call_count": 94,
       "total_duration_us": 435.0,
       "production_performance": {
-        "framework": "aiter",
-        "performance_us": 14.24
+        "XPU-A": {
+          "framework": "aiter",
+          "performance_us": 14.24
+        }
       }
     },
     "4": {
@@ -65,8 +73,10 @@
       "call_count": 94,
       "total_duration_us": 623.0,
       "production_performance": {
-        "framework": "aiter",
-        "performance_us": 21.19
+        "XPU-A": {
+          "framework": "aiter",
+          "performance_us": 21.19
+        }
       }
     },
     "5": {
@@ -75,8 +85,10 @@
       "call_count": 94,
       "total_duration_us": 870.0,
       "production_performance": {
-        "framework": "aiter",
-        "performance_us": 29.22
+        "XPU-A": {
+          "framework": "aiter",
+          "performance_us": 29.22
+        }
       }
     },
     "6": {
@@ -84,8 +96,10 @@
       "source_framework": "vllm",
       "call_count": 28,
       "production_performance": {
-        "framework": "aiter",
-        "performance_us": 33.7
+        "XPU-A": {
+          "framework": "aiter",
+          "performance_us": 33.7
+        }
       }
     },
     "7": {
@@ -93,8 +107,10 @@
       "source_framework": "vllm",
       "call_count": 28,
       "production_performance": {
-        "framework": "aiter",
-        "performance_us": 60.29
+        "XPU-A": {
+          "framework": "aiter",
+          "performance_us": 60.29
+        }
       }
     }
   }
