@@ -237,9 +237,9 @@ Most are trace-derived (`status: "trace_reference"`); the rest are curated.
 <tr><td><code>per_token_group_quant_fp8</code></td><td><code>atrex_025</code></td><td><code>fp8_e4m3</code></td><td><code>vllm.per_token_group_quant_fp8</code></td><td><code>curated</code></td></tr>
 <tr><td><code>reshape_and_cache</code></td><td><code>atrex_026</code></td><td><code>bf16</code></td><td><code>vllm.reshape_and_cache_flash</code></td><td><code>trace_reference</code></td></tr>
 <tr><td><code>rms_norm</code></td><td><code>atrex_027</code></td><td><code>bf16</code></td><td><code>vllm.rms_norm</code></td><td><code>trace_reference</code></td></tr>
-<tr><td><code>silu_and_mul</code></td><td><code>atrex_029</code></td><td><code>bf16</code></td><td><code>vllm.vllm_silu_and_mul</code></td><td><code>trace_reference</code></td></tr>
-<tr><td><code>topk_filter</code></td><td><code>atrex_030</code></td><td><code>fp32</code></td><td><code>vllm</code> / FlashInfer top-k masking</td><td><code>curated</code></td></tr>
-<tr><td><code>unified_attention</code></td><td><code>atrex_031</code></td><td><code>bf16</code></td><td><code>vllm.unified_attention</code></td><td><code>curated</code></td></tr>
+<tr><td><code>silu_and_mul</code></td><td><code>atrex_028</code></td><td><code>bf16</code></td><td><code>vllm.vllm_silu_and_mul</code></td><td><code>trace_reference</code></td></tr>
+<tr><td><code>topk_filter</code></td><td><code>atrex_029</code></td><td><code>fp32</code></td><td><code>vllm</code> / FlashInfer top-k masking</td><td><code>curated</code></td></tr>
+<tr><td><code>unified_attention</code></td><td><code>atrex_030</code></td><td><code>bf16</code></td><td><code>vllm.unified_attention</code></td><td><code>curated</code></td></tr>
 </tbody>
 </table>
 </details>
