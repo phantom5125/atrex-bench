@@ -26,6 +26,7 @@ a cached roofline.
 
 - **30 operators**, mostly derived from real production traces (vLLM / SGLang / AITER / rtp-llm).
 - **4 DSL backends** out of the box: Triton, Gluon, FlyDSL, CuteDSL.
+- **Multi-vendor GPUs**: the same operators, references, and evaluator run on both AMD (ROCm) and NVIDIA (CUDA), with prebuilt images for each.
 - **Three-stage evaluator**: compile, numerical correctness, and performance vs. roofline SOL.
 - **Generation harness** that drives an LLM CLI (Claude Code / Codex) inside a scoped workspace.
 - **Leak-resistant by design**: a one-shot cleanup strips the checkout to the agent-visible
