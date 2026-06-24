@@ -15,7 +15,7 @@ type ShapeEntry = {
   id: string;
   description: string;
   sol: PerHw;
-  prod_us: number | null;
+  prod: PerHw;
   s: PerHw;
 };
 
@@ -25,7 +25,7 @@ type OpRow = {
   phase: string;
   shapeCount: number;
   medianSol: PerHw;
-  medianProd: number | null;
+  medianProd: PerHw;
   medianS: PerHw;
   shapes: ShapeEntry[];
 };
@@ -40,49 +40,58 @@ const median = (arr: number[]) => {
 
 for (const op of operators as any[]) {
   const rs = op.roofline_shapes || {};
-  const ps = op.production_shapes || {};
+  const ps = op.production_shapes || {};   // { sku: { sid: us } }
   const shapeIds = Object.keys(rs).sort((a, b) => parseInt(a) - parseInt(b));
   if (shapeIds.length === 0) continue;
 
   const shapes: ShapeEntry[] = [];
   const solsByHw: Record<string, number[]> = {};
   const sByHw: Record<string, number[]> = {};
-  const prods: number[] = [];
+  const prodsByHw: Record<string, number[]> = {};
 
   for (const hw of hardware as string[]) {
     solsByHw[hw] = [];
     sByHw[hw] = [];
+    prodsByHw[hw] = [];
   }
 
   for (const sid of shapeIds) {
     const r = rs[sid];
-    const prod_us = ps[sid] ?? null;
-    if (prod_us != null) prods.push(prod_us);
 
     const sol: PerHw = {};
+    const prod: PerHw = {};
     const s: PerHw = {};
     for (const hw of hardware as string[]) {
       const v = r.SOL_time_ms?.[hw] ?? null;
       sol[hw] = v;
       if (v != null) solsByHw[hw].push(v);
-      const ratio = v != null && prod_us != null && prod_us > 0 ? v / prod_us : null;
+
+      // Production time is per-SKU; a SKU with no measurement stays null (→ "—").
+      const pv = ps[hw]?.[sid] ?? null;
+      prod[hw] = pv;
+      if (pv != null) prodsByHw[hw].push(pv);
+
+      // S is only meaningful when the same SKU has both a roofline and a measurement.
+      const ratio = v != null && pv != null && pv > 0 ? v / pv : null;
       s[hw] = ratio;
       if (ratio != null) sByHw[hw].push(ratio);
     }
 
-    shapes.push({ id: sid, description: r.description || `shape ${sid}`, sol, prod_us, s });
+    shapes.push({ id: sid, description: r.description || `shape ${sid}`, sol, prod, s });
   }
 
   const medianSol: PerHw = {};
+  const medianProd: PerHw = {};
   const medianS: PerHw = {};
   for (const hw of hardware as string[]) {
     medianSol[hw] = median(solsByHw[hw]);
+    medianProd[hw] = median(prodsByHw[hw]);
     medianS[hw] = median(sByHw[hw]);
   }
 
   rows.push({
     name: op.name, dtype: op.dtype, phase: op.phase || '',
-    shapeCount: shapes.length, medianSol, medianProd: median(prods), medianS, shapes,
+    shapeCount: shapes.length, medianSol, medianProd, medianS, shapes,
   });
 }
 
@@ -190,9 +199,10 @@ function barW(s: number | null): number {
                 <tr class="border-b border-gray-800/30 hover:bg-gray-800/30 transition-colors cursor-pointer sv-operator-row"
                     data-op={op.name} data-shapes={op.shapeCount}
                     data-sol={op.medianSol[defaultHw] ?? 0}
-                    data-prod={op.medianProd ?? 0}
+                    data-prod={op.medianProd[defaultHw] ?? 0}
                     data-s={op.medianS[defaultHw] ?? 0}
                     data-sol-raw-hw={JSON.stringify(Object.fromEntries((hardware as string[]).map(hw => [hw, op.medianSol[hw]])))}
+                    data-prod-hw={JSON.stringify(Object.fromEntries((hardware as string[]).map(hw => [hw, op.medianProd[hw]])))}
                     data-s-hw={JSON.stringify(Object.fromEntries((hardware as string[]).map(hw => [hw, op.medianS[hw]])))}
                     >
                   <td class="py-2 px-3 text-gray-500 sv-chevron">&#x25B6;</td>
@@ -213,7 +223,7 @@ function barW(s: number | null): number {
                     {fmtAs(op.medianSol[defaultHw], opMs)}
                   </td>
                   <td class="py-2 px-3 text-right font-mono text-gray-300 hidden lg:table-cell sv-prod-cell">
-                    {fmtAs(op.medianProd, opMs)}
+                    {fmtAs(op.medianProd[defaultHw], opMs)}
                   </td>
                   <td class="py-2 px-3 text-right sv-s-badge-cell">
                     <span class={`badge text-xs ${sBadgeCls(op.medianS[defaultHw])}`}>
@@ -234,7 +244,7 @@ function barW(s: number | null): number {
                   <tr class="hidden sv-shape-row border-b border-gray-800/10 bg-gray-900/30"
                       data-parent={op.name}
                       data-sol-raw-hw={JSON.stringify(Object.fromEntries((hardware as string[]).map(hw => [hw, sh.sol[hw]])))}
-                      data-prod-raw={sh.prod_us}
+                      data-prod-raw-hw={JSON.stringify(Object.fromEntries((hardware as string[]).map(hw => [hw, sh.prod[hw]])))}
                       data-s-hw={JSON.stringify(Object.fromEntries((hardware as string[]).map(hw => [hw, sh.s[hw]])))}
                       >
                     <td class="py-1.5 px-3"></td>
@@ -248,7 +258,7 @@ function barW(s: number | null): number {
                       {fmtAs(sh.sol[defaultHw], shMs)}
                     </td>
                     <td class="py-1.5 px-3 text-right font-mono text-brand-300 hidden lg:table-cell sv-prod-cell">
-                      {fmtAs(sh.prod_us, shMs)}
+                      {fmtAs(sh.prod[defaultHw], shMs)}
                     </td>
                     <td class="py-1.5 px-3 text-right sv-s-text-cell">
                       <span class={`font-mono text-xs ${sTextCls(sh.s[defaultHw])}`}>
@@ -370,16 +380,14 @@ function barW(s: number | null): number {
       const solCell = el.querySelector('.sv-sol-cell');
       if (solCell) solCell.textContent = fmtAs(solRaw, ms);
 
+      const prodMap = JSON.parse((isOperator ? el.dataset.prodHw : el.dataset.prodRawHw) || '{}');
+      const prodRaw: number | null = prodMap[hw] ?? null;
       const prodCell = el.querySelector('.sv-prod-cell');
-      if (prodCell) {
-        const prodRaw = isOperator
-          ? parseFloat(el.dataset.prod || '0') || null
-          : parseFloat(el.dataset.prodRaw || '') || null;
-        prodCell.textContent = fmtAs(prodRaw, ms);
-      }
+      if (prodCell) prodCell.textContent = fmtAs(prodRaw, ms);
 
       if (isOperator) {
         el.dataset.sol = String(solRaw ?? 0);
+        el.dataset.prod = String(prodRaw ?? 0);
         el.dataset.s = String(sVal ?? 0);
         const badgeCell = el.querySelector('.sv-s-badge-cell');
         if (badgeCell) {

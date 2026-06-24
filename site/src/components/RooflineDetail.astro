@@ -106,7 +106,12 @@ const prodHardware = ['XPU-A', 'H20'];
                 ? 'text-red-300' : regime === 'memory-bound'
                 ? 'text-blue-300' : 'text-gray-500';
 
-              const prodTime = op.production_shapes?.[midSid];
+              // Production time is per-SKU; build a map so the dropdown can switch
+              // it, and SKUs without a measurement (e.g. H20) render as "—".
+              const prodByHw = Object.fromEntries(
+                prodHardware.map((hw) => [hw, op.production_shapes?.[hw]?.[midSid] ?? null])
+              );
+              const prodTime = prodByHw[prodHardware[0]];
 
               return (
                 <tr class="border-b border-gray-800/30 hover:bg-gray-800/20">
@@ -131,7 +136,8 @@ const prodHardware = ['XPU-A', 'H20'];
                       </td>
                     );
                   })}
-                  <td class="py-2 px-3 text-right font-mono prod-time-cell">
+                  <td class="py-2 px-3 text-right font-mono prod-time-cell"
+                      data-prod-hw={JSON.stringify(prodByHw)}>
                     {prodTime != null ? (
                       <span class="text-brand-300">
                         {prodTime >= 1000
@@ -153,3 +159,26 @@ const prodHardware = ['XPU-A', 'H20'];
     </p>
     </div>
 </div>
+
+<script>
+  // Switch the T_Prod column when the hardware dropdown changes. Production time
+  // is per-SKU; a SKU with no measurement (e.g. H20) renders as "—".
+  const prodHwSelect = document.getElementById('prod-hw-select') as HTMLSelectElement | null;
+
+  function fmtProd(us: number | null): string {
+    if (us == null) return '<span class="text-gray-600">—</span>';
+    const t = us >= 1000 ? (us / 1000).toFixed(1) + ' ms' : us.toFixed(0) + ' us';
+    return `<span class="text-brand-300">${t}</span>`;
+  }
+
+  if (prodHwSelect) {
+    prodHwSelect.addEventListener('change', () => {
+      const hw = prodHwSelect.value;
+      if (!hw) return;
+      document.querySelectorAll('.prod-time-cell').forEach(cell => {
+        const map = JSON.parse((cell as HTMLElement).dataset.prodHw || '{}');
+        cell.innerHTML = fmtProd(map[hw] ?? null);
+      });
+    });
+  }
+</script>

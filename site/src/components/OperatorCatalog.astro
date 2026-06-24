@@ -57,7 +57,7 @@ function regimeLabel(regime: string) {
                 <span data-i18n="operators.table.shapes">Shapes</span>
               </th>
               <th class="text-right py-3 px-3 text-gray-400 font-medium hidden lg:table-cell">
-T<sub>Prod</sub>
+                T<sub>Prod</sub> <span class="text-gray-600 font-normal">(XPU-A)</span>
               </th>
               <th class="text-right py-3 px-3 text-gray-400 font-medium cursor-pointer hover:text-white select-none" data-sort="importance">
                 <span data-i18n="operators.table.importance">Importance</span>
@@ -91,11 +91,11 @@ T<sub>Prod</sub>
                 <td class="py-2.5 px-3 text-gray-400 text-xs hidden sm:table-cell">{op.framework}</td>
                 <td class="py-2.5 px-3 text-right text-gray-300">{op.shapes}</td>
                 <td class="py-2.5 px-3 text-right hidden lg:table-cell">
-                  {op.production_perf ? (
+                  {op.production_perf?.['XPU-A'] ? (
                     <span class="text-gray-300 font-mono text-xs">
-                      {op.production_perf.median_us >= 1000
-                        ? (op.production_perf.median_us / 1000).toFixed(1) + ' ms'
-                        : op.production_perf.median_us.toFixed(0) + ' us'}
+                      {op.production_perf['XPU-A'].median_us >= 1000
+                        ? (op.production_perf['XPU-A'].median_us / 1000).toFixed(1) + ' ms'
+                        : op.production_perf['XPU-A'].median_us.toFixed(0) + ' us'}
                     </span>
                   ) : <span class="text-gray-600">—</span>}
                 </td>

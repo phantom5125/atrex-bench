@@ -128,43 +128,50 @@ def main():
                     "hardware_targets": sorted(all_hw_names),
                 }
 
-        # Production performance
-        prod_perf = metadata.get("production_performance", {})
-        if not isinstance(prod_perf, dict):
-            prod_perf = {}
-        if not prod_perf:
-            for sid, shape_meta in metadata_shapes.items():
-                if not isinstance(shape_meta, dict):
-                    continue
-                # production_performance is keyed by GPU SKU; only XPU-A measured so far
-                shape_perf_by_sku = shape_meta.get("production_performance")
-                shape_perf = (
-                    shape_perf_by_sku.get("XPU-A")
-                    if isinstance(shape_perf_by_sku, dict)
-                    else None
-                )
-                if isinstance(shape_perf, dict) and shape_perf:
-                    prod_perf[sid] = shape_perf
-        prod_summary = None
-        prod_shapes = {}
-        if prod_perf:
-            total_prod_perf_shapes += len(prod_perf)
+        # Production performance — keyed by GPU SKU. A SKU only appears for an
+        # operator if at least one of its shapes was actually measured on that
+        # SKU. SKUs with no measurement (e.g. H20 today) are simply absent, so
+        # the site renders "—" for them instead of borrowing XPU-A's numbers.
+        prod_by_sku: dict = {}  # sku -> {sid: perf_dict}
+        for sid, shape_meta in metadata_shapes.items():
+            if not isinstance(shape_meta, dict):
+                continue
+            shape_perf_by_sku = shape_meta.get("production_performance")
+            if not isinstance(shape_perf_by_sku, dict):
+                continue
+            for sku, perf in shape_perf_by_sku.items():
+                if isinstance(perf, dict) and perf.get("performance_us") is not None:
+                    prod_by_sku.setdefault(sku, {})[sid] = perf
+
+        prod_summary = {}  # sku -> summary
+        prod_shapes = {}   # sku -> {sid: us}
+        measured_sids = set()
+        for sku, perf_map in prod_by_sku.items():
             times = []
-            for sid, v in prod_perf.items():
+            shapes_us = {}
+            fw_set = set()
+            for sid, v in perf_map.items():
                 t = v.get("performance_us")
-                if t is not None:
-                    times.append(t)
-                    prod_shapes[sid] = round(t, 1)
-            fw_set = {v.get("framework", "") for v in prod_perf.values()}
-            if times:
-                times_sorted = sorted(times)
-                prod_summary = {
-                    "shapes_measured": len(times),
-                    "median_us": round(times_sorted[len(times_sorted) // 2], 1),
-                    "min_us": round(times_sorted[0], 1),
-                    "max_us": round(times_sorted[-1], 1),
-                    "framework": sorted(fw_set - {""})[0] if fw_set - {""} else "",
-                }
+                if t is None:
+                    continue
+                times.append(t)
+                shapes_us[sid] = round(t, 1)
+                measured_sids.add(sid)
+                fw = v.get("framework", "")
+                if fw:
+                    fw_set.add(fw)
+            if not times:
+                continue
+            times_sorted = sorted(times)
+            prod_summary[sku] = {
+                "shapes_measured": len(times),
+                "median_us": round(times_sorted[len(times_sorted) // 2], 1),
+                "min_us": round(times_sorted[0], 1),
+                "max_us": round(times_sorted[-1], 1),
+                "framework": sorted(fw_set)[0] if fw_set else "",
+            }
+            prod_shapes[sku] = shapes_us
+        total_prod_perf_shapes += len(measured_sids)
 
         operators.append({
             "name": op_dir.name,
