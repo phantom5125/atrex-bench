@@ -1,6 +1,7 @@
 ---
 import operatorData from '../data/operators.json';
-const { operators, hardware } = operatorData;
+const { operators, hardware, hardware_specs } = operatorData;
+const hwSpecs = hardware_specs as Record<string, Record<string, any>>;
 
 const hwShort: Record<string, string> = {
   'XPU-A': 'XPU-A',
@@ -101,8 +102,14 @@ function useMsUnit(sol_us: number | null): boolean {
   return sol_us != null && sol_us >= 1000;
 }
 
-function fmtAs(us: number | null, ms: boolean): string {
+function fmtAs(us: number | null, ms: boolean, hw?: string): string {
   if (us == null) return '—';
+  if (hw) {
+    const floor = hwSpecs[hw]?.launch_overhead_us;
+    if (floor != null && us <= floor + 0.01) {
+      return '< ' + floor.toFixed(1) + ' us';
+    }
+  }
   return ms ? (us / 1000).toFixed(1) + ' ms' : us.toFixed(1) + ' us';
 }
 
@@ -144,7 +151,7 @@ function barW(s: number | null): number {
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
-<div class="page-section">
+<div class="page-section" data-hw-specs={JSON.stringify(hwSpecs)}>
   <div class="page-container">
     <h2 class="section-heading !mt-0">SOL Ratio by Operator &times; Shape</h2>
     <p class="text-gray-400 text-sm mb-2">
@@ -227,7 +234,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
                   <td class="py-2 px-3 text-gray-400 hidden md:table-cell">{op.phase === 'prefill/decode' ? 'both' : (op.phase || '—')}</td>
                   <td class="py-2 px-3 text-right text-gray-300">{op.shapeCount}</td>
                   <td class="py-2 px-3 text-right font-mono text-gray-300 hidden lg:table-cell sv-sol-cell whitespace-nowrap">
-                    {fmtAs(op.medianSol[defaultHw], opMs)}
+                    {fmtAs(op.medianSol[defaultHw], opMs, defaultHw)}
                   </td>
                   <td class="py-2 px-3 text-right font-mono text-gray-300 hidden lg:table-cell sv-prod-cell whitespace-nowrap">
                     {fmtAs(op.medianProd[defaultHw], opMs)}
@@ -263,7 +270,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
                       </div>
                     </td>
                     <td class="py-1.5 px-3 text-right font-mono text-gray-400 hidden lg:table-cell sv-sol-cell whitespace-nowrap">
-                      {fmtAs(sh.sol[defaultHw], shMs)}
+                      {fmtAs(sh.sol[defaultHw], shMs, defaultHw)}
                     </td>
                     <td class="py-1.5 px-3 text-right font-mono text-brand-300 hidden lg:table-cell sv-prod-cell whitespace-nowrap">
                       {fmtAs(sh.prod[defaultHw], shMs)}
@@ -338,14 +345,22 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   });
 
   // Helpers
+  const hwSpecsClient = JSON.parse(document.querySelector('[data-hw-specs]')?.getAttribute('data-hw-specs') || '{}');
+
   function fmtS(s: number | null): string {
     if (s == null) return '—';
     if (s > 1.0) return (s * 100).toFixed(1) + '% ⚠';
     return (s * 100).toFixed(1) + '%';
   }
 
-  function fmtAs(us: number | null, ms: boolean): string {
+  function fmtAs(us: number | null, ms: boolean, hw?: string): string {
     if (us == null) return '—';
+    if (hw) {
+      const floor = hwSpecsClient[hw]?.launch_overhead_us;
+      if (floor != null && us <= floor + 0.01) {
+        return '< ' + floor.toFixed(1) + ' us';
+      }
+    }
     return ms ? (us / 1000).toFixed(1) + ' ms' : us.toFixed(1) + ' us';
   }
 
@@ -384,7 +399,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       const ms = solRaw != null && solRaw >= 1000;
 
       const solCell = el.querySelector('.sv-sol-cell');
-      if (solCell) solCell.textContent = fmtAs(solRaw, ms);
+      if (solCell) solCell.textContent = fmtAs(solRaw, ms, hw);
 
       const prodMap = JSON.parse((isOperator ? el.dataset.prodHw : el.dataset.prodRawHw) || '{}');
       const prodRaw: number | null = prodMap[hw] ?? null;

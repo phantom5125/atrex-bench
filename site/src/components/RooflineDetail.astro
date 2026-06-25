@@ -129,12 +129,16 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
                   </td>
                   {hardware.map((hw: string) => {
                     const sol_us = rs.SOL_time_ms?.[hw];
+                    const floor = (hardware_specs as any)[hw]?.launch_overhead_us;
+                    const isClamped = floor != null && sol_us != null && floor + 0.01 >= sol_us;
                     return (
                       <td class="py-2 px-3 text-right font-mono text-gray-300">
                         {sol_us != null
-                          ? sol_us >= 1000
-                            ? (sol_us / 1000).toFixed(2) + ' ms'
-                            : sol_us.toFixed(2) + ' us'
+                          ? isClamped
+                            ? '< ' + floor.toFixed(1) + ' us'
+                            : sol_us >= 1000
+                              ? (sol_us / 1000).toFixed(2) + ' ms'
+                              : sol_us.toFixed(2) + ' us'
                           : <span class="text-gray-600">—</span>}
                       </td>
                     );
